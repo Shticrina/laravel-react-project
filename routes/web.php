@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+
+Route::get('/homepage', function() {
+	return Inertia::render('Home');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/profile', [App\Http\Controllers\HomeController::class, 'index'])->name('profile');
