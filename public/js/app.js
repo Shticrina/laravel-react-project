@@ -2893,10 +2893,13 @@ __webpack_require__.r(__webpack_exports__);
 
 var app = document.getElementById('app');
 (0,react_dom__WEBPACK_IMPORTED_MODULE_2__.render)( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__.InertiaApp, {
-  initialPage: JSON.parse(app.dataset.page),
+  initialPage: JSON.parse(app.dataset.page) // resolveComponent={name => import(`./Pages/${name}`).then(module => module.default)}
+  ,
   resolveComponent: function resolveComponent(name) {
-    return __webpack_require__("./resources/js/Pages lazy recursive ^\\.\\/.*$")("./".concat(name)).then(function (module) {
-      return module["default"];
+    return __webpack_require__("./resources/js/Pages lazy recursive ^\\.\\/.*$")("./".concat(name)).then(function (_ref) {
+      var page = _ref["default"];
+      page.layout = page.layout === undefined ? Layout : page.layout;
+      return page;
     });
   }
 }), app);
@@ -31628,6 +31631,14 @@ var map = {
 	"./Home.tsx": [
 		"./resources/js/Pages/Home.tsx",
 		"resources_js_Pages_Home_tsx"
+	],
+	"./Posts/Index": [
+		"./resources/js/Pages/Posts/Index.tsx",
+		"resources_js_Pages_Posts_Index_tsx"
+	],
+	"./Posts/Index.tsx": [
+		"./resources/js/Pages/Posts/Index.tsx",
+		"resources_js_Pages_Posts_Index_tsx"
 	]
 };
 function webpackAsyncContext(req) {
@@ -31742,7 +31753,7 @@ module.exports = webpackAsyncContext;
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if (chunkId === "resources_js_Pages_Home_tsx") return "" + chunkId + ".js";
+/******/ 			if ({"resources_js_Pages_Home_tsx":1,"resources_js_Pages_Posts_Index_tsx":1}[chunkId]) return "" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
@@ -31848,7 +31859,7 @@ module.exports = webpackAsyncContext;
 /******/ 					if(installedChunkData) {
 /******/ 						promises.push(installedChunkData[2]);
 /******/ 					} else {
-/******/ 						if("resources_js_Pages_Home_tsx" == chunkId) {
+/******/ 						if("css/app" != chunkId) {
 /******/ 							// setup Promise in chunk cache
 /******/ 							var promise = new Promise((resolve, reject) => {
 /******/ 								installedChunkData = installedChunks[chunkId] = [resolve, reject];
